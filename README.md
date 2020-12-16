@@ -5,4 +5,8 @@ In order to create a new category just add (/<category_name>) to the url. For ex
 
 This web applicatoin is deployed on Heroku and the data is persisted using MongoDB Atlas.
 
+Demo
+-----------
+![](https://github.com/Ayushman-500/Ayushman-500/blob/master/ToDoList-Web-App.gif)
+
 # Live on - https://stark-harbor-22328.herokuapp.com/
