@@ -4,19 +4,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-
-
+const dotenv = require("dotenv");
 
 const app = express();
 
+dotenv.config()
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-
 // "mongodb://localhost:27017/todolistDB"
-mongoose.connect("mongodb+srv://admin-ayushman:Test123@cluster0.i6024.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
+
+mongoose.connect(process.env.MONGODB_CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const itemsSchema = {
   name: String
@@ -38,19 +38,12 @@ const item3 = new Item ({
 
 const defaultItems = [item1, item2, item3];
 
-
 const listSchema = {
   name: String,
   items: [itemsSchema]
 };
 
 const List = mongoose.model("List", listSchema);
-
-
-
-
-
-
 
 app.get("/", function(req, res) {
   Item.find({}, function(err, foundItems){
@@ -94,9 +87,6 @@ app.get("/:customListName", function(req, res){
       }
     }
   });
-
-
-
 });
 
 
@@ -118,8 +108,6 @@ app.post("/", function(req, res){
       res.redirect("/" + listName);
     });
   }
-
-
 });
 
 app.post("/delete", function(req, res){
@@ -140,9 +128,6 @@ app.post("/delete", function(req, res){
       }
     });
   }
-
-
-
 });
 
 
